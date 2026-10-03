@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renomear seção — Livro-Caixa</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/categorias" aria-current="page">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <h1>Renomear seção</h1>
+    <p class="sub">Corrigindo o nome de “<%= categoria.nome %>”.</p>
+
+    <% if (erro) { %>
+      <p class="erro" role="alert">
+        <%= erro %>
+      </p>
+      <% } %>
+
+        <form class="form-livro" action="/categorias/<%= categoria.id %>" method="POST" data-flash="Seção renomeada"
+          data-flash-texto="O novo nome foi registrado.">
+          <label>Nome da seção
+            <input type="text" name="nome" value="<%= categoria.nome %>" required autocomplete="off">
+          </label>
+          <div class="linha">
+            <button class="btn" type="submit">Registrar novo nome</button>
+            <a class="btn secundario" href="/categorias">Voltar</a>
+          </div>
+        </form>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/javascripts/app.js"></script>
+</body>
+
+</html>

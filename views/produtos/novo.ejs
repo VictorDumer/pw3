@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lançar produto — Livro-Caixa</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos" aria-current="page">Produtos</a>
+        <a href="/categorias">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <h1>Lançar produto</h1>
+    <p class="sub">Um lançamento novo no livro: o que é, quanto custa, quanto entra e em qual seção mora.</p>
+
+    <% if (erro) { %>
+      <p class="erro" role="alert">
+        <%= erro %>
+      </p>
+      <% } %>
+
+        <form class="form-livro" action="/produtos" method="POST" data-flash="Lançado no livro"
+          data-flash-texto="O produto entrou para o estoque.">
+          <label>Produto
+            <input type="text" name="nome" required autocomplete="off" placeholder="Ex.: Teclado mecânico">
+          </label>
+          <label>Preço (R$)
+            <input type="number" name="preco" step="0.01" min="0" required placeholder="0,00">
+          </label>
+          <label>Saldo inicial
+            <input type="number" name="quantidade" min="0" value="0">
+          </label>
+          <label>Seção
+            <select name="categoriaId">
+              <option value="">Sem seção</option>
+              <% categorias.forEach(c=> { %>
+                <option value="<%= c.id %>">
+                  <%= c.nome %>
+                </option>
+                <% }) %>
+            </select>
+            <% if (categorias.length===0) { %><small>Nenhuma seção aberta ainda — <a href="/categorias/nova">abra a
+                  primeira</a>.</small>
+              <% } %>
+          </label>
+          <div class="linha">
+            <button class="btn" type="submit">Lançar no livro</button>
+            <a class="btn secundario" href="/produtos">Voltar</a>
+          </div>
+        </form>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/javascripts/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seções — Livro-Caixa</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/categorias" aria-current="page">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <h1>Seções do livro</h1>
+    <p class="sub">Cada seção agrupa os produtos de uma mesma prateleira.</p>
+
+    <div class="acoes-linha">
+      <a class="btn" href="/categorias/nova">
+        <i data-lucide="plus"></i>
+        Abrir seção
+      </a>
+      <a class="btn secundario" href="/produtos">Ver produtos</a>
+    </div>
+
+    <% if (categorias.length> 0) { %>
+      <div class="rolo">
+        <table class="livro">
+          <caption>Seções abertas no livro</caption>
+          <thead>
+            <tr>
+              <th scope="col">Seção</th>
+              <th scope="col" class="num">Lançamentos</th>
+              <th scope="col" class="acoes-direita">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% categorias.forEach((c, i)=> { %>
+              <tr>
+                <td>
+                  <a class="tarja cat-<%= i % 6 %>" href="/produtos/categoria/<%= c.id %>"><i></i><strong>
+                      <%= c.nome %>
+                    </strong></a>
+                </td>
+                <td class="num">
+                  <%= c.produtos ? c.produtos.length : 0 %>
+                </td>
+                <td class="acoes acoes-direita">
+                  <a class="icon-btn" href="/produtos/categoria/<%= c.id %>" title="Ver produtos de <%= c.nome %>"
+                    aria-label="Ver produtos de <%= c.nome %>"><i data-lucide="eye"></i></a>
+                  <a class="icon-btn" href="/categorias/<%= c.id %>/editar" title="Renomear <%= c.nome %>"
+                    aria-label="Renomear <%= c.nome %>"><i data-lucide="pencil"></i></a>
+                  <form action="/categorias/<%= c.id %>/deletar" method="POST"
+                    data-confirm="a seção <%= c.nome %> (os produtos ficam sem seção)">
+                    <button class="icon-btn perigo" type="submit" title="Excluir <%= c.nome %>"
+                      aria-label="Excluir <%= c.nome %>"><i data-lucide="trash-2"></i></button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } else { %>
+        <div class="vazio">
+          <p>Nenhuma seção aberta ainda.</p>
+          <p><a class="btn" href="/categorias/nova">Abrir a primeira seção</a></p>
+        </div>
+        <% } %>
+
+          <footer class="colofao">
+            <span>Seções do livro · Livro-Caixa</span>
+            <span class="marca-fim">made by vdumer</span>
+          </footer>
+  </main>
+  <script src="/vendor/lucide/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/javascripts/app.js"></script>
+</body>
+
+</html>

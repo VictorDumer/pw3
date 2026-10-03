@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retificar lançamento — Livro-Caixa</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos" aria-current="page">Produtos</a>
+        <a href="/categorias">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <h1>Retificar lançamento</h1>
+    <p class="sub">Corrigindo “<%= produto.nome %>”: ajuste os valores e registre de novo.</p>
+
+    <% if (erro) { %>
+      <p class="erro" role="alert">
+        <%= erro %>
+      </p>
+      <% } %>
+
+        <form class="form-livro" action="/produtos/<%= produto.id %>" method="POST" data-flash="Lançamento retificado"
+          data-flash-texto="As alterações foram registradas.">
+          <label>Produto
+            <input type="text" name="nome" value="<%= produto.nome %>" required autocomplete="off">
+          </label>
+          <label>Preço (R$)
+            <input type="number" name="preco" step="0.01" min="0" value="<%= produto.preco %>" required>
+          </label>
+          <label>Saldo
+            <input type="number" name="quantidade" min="0" value="<%= produto.quantidade %>">
+          </label>
+          <label>Seção
+            <select name="categoriaId">
+              <option value="">Sem seção</option>
+              <% categorias.forEach(c=> { %>
+                <option value="<%= c.id %>" <%=String(produto.categoriaId)===String(c.id) ? 'selected' : '' %>><%=
+                    c.nome %>
+                </option>
+                <% }) %>
+            </select>
+          </label>
+          <div class="linha">
+            <button class="btn" type="submit">Registrar retificação</button>
+            <a class="btn secundario" href="/produtos">Voltar</a>
+          </div>
+        </form>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/javascripts/app.js"></script>
+</body>
+
+</html>

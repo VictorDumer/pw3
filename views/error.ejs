@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página rasurada — Livro-Caixa</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/categorias">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <p class="codigo-erro">Ops.</p>
+    <h1>
+      <%= message %>
+    </h1>
+    <p class="sub">Esta página do livro não existe ou saiu do ar. Volte ao índice e siga o fluxo.</p>
+    <div class="acoes-linha">
+      <a class="btn" href="/produtos">Voltar aos produtos</a>
+      <a class="btn secundario" href="/">Início</a>
+    </div>
+  </main>
+</body>
+
+</html>

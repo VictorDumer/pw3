@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %> — Livro-Caixa
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/" aria-current="page">Início</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/categorias">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <h1>
+      <%= title %>
+    </h1>
+    <p class="sub">O livro da loja: produtos lançados, saldos conferidos e categorias em ordem, do balcão para o banco
+      de dados.</p>
+    <ol class="indice">
+      <li>
+        <a href="/produtos">
+          <span class="n">1</span>
+          <span class="t">Produtos</span>
+          <span class="d">Consultar saldos, buscar e filtrar</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/produtos/novo">
+          <span class="n">2</span>
+          <span class="t">Lançar produto</span>
+          <span class="d">Nome, preço, saldo inicial e categoria</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/categorias">
+          <span class="n">3</span>
+          <span class="t">Categorias</span>
+          <span class="d">As seções onde cada produto mora</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/categorias/nova">
+          <span class="n">4</span>
+          <span class="t">Abrir categoria</span>
+          <span class="d">Criar uma seção nova no livro</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      </li>
+    </ol>
+
+    <footer class="colofao">
+      <span>Livro-Caixa · conferência diária</span>
+      <span class="marca-fim">made by vdumer</span>
+    </footer>
+  </main>
+  <script src="/vendor/lucide/lucide.min.js"></script>
+  <script src="/javascripts/app.js"></script>
+
+</html>

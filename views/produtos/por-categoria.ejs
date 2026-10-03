@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seção <%= categoria.nome %> — Livro-Caixa</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a class="marca" href="/">Livro-Caixa<small>controle de estoque da loja</small></a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/produtos" aria-current="page">Produtos</a>
+        <a href="/categorias">Categorias</a>
+      </nav>
+    </div>
+  </header>
+  <main class="pagina">
+    <h1>Seção: <%= categoria.nome %>
+    </h1>
+    <p class="sub">Só os lançamentos desta seção do livro.</p>
+
+    <div class="faixa" aria-live="polite">
+      <span class="contagem">
+        <%= produtos.length %>
+          <%= produtos.length===1 ? 'lançamento' : 'lançamentos' %>
+      </span>
+      <span class="chips">
+        <a class="btn pequeno secundario" href="/produtos">Livro inteiro</a>
+        <% categorias.forEach(c=> { %>
+          <a class="tarja cat-<%= (categorias.findIndex(x => String(x.id) === String(c.id)) % 6) %>"
+            href="/produtos/categoria/<%= c.id %>"><i></i>
+            <%= c.nome %>
+          </a>
+          <% }) %>
+      </span>
+    </div>
+
+    <% if (produtos.length> 0) { %>
+      <div class="rolo">
+        <table class="livro">
+          <caption>Lançamentos da seção <%= categoria.nome %>
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Nº</th>
+              <th scope="col">Produto</th>
+              <th scope="col" class="num">Preço</th>
+              <th scope="col">Saldo</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% produtos.forEach((p, i)=> { %>
+              <% const nSaldo=Number(p.quantidade) || 0; %>
+                <% const estado=nSaldo===0 ? 'zerado' : (nSaldo <=5 ? 'baixo' : 'ok' ); %>
+                  <tr>
+                    <td class="folha-n">
+                      <%= i + 1 %>
+                    </td>
+                    <td><strong>
+                        <%= p.nome %>
+                      </strong></td>
+                    <td class="num">R$ <%= Number(p.preco).toFixed(2) %>
+                    </td>
+                    <td>
+                      <span class="saldo <%= estado %>">
+                        <span class="estado">
+                          <% if (estado==='zerado' ) { %><span class="carimbo">Zerado</span>
+                            <% } %>
+                              <% if (estado==='baixo' ) { %><span class="carimbo baixo">Baixo</span>
+                                <% } %>
+                        </span>
+                                <span class="valor">
+                                  <%= p.quantidade %>
+                                </span>
+                                <span class="barra" aria-hidden="true"><i
+                                    style="width:<%= Math.min(100, nSaldo * 10) %>%"></i></span>
+                      </span>
+                    </td>
+                    <td class="acoes">
+                      <a class="icon-btn" href="/produtos/<%= p.id %>/editar" title="Editar <%= p.nome %>"
+                        aria-label="Editar <%= p.nome %>"><i data-lucide="pencil"></i></a>
+                      <form action="/produtos/<%= p.id %>/deletar" method="POST" data-confirm="o produto <%= p.nome %>">
+                        <button class="icon-btn perigo" type="submit" title="Excluir <%= p.nome %>"
+                          aria-label="Excluir <%= p.nome %>"><i data-lucide="trash-2"></i></button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <ul class="legenda">
+        <li><span class="carimbo baixo">Baixo</span> 5 ou menos em estoque</li>
+        <li><span class="carimbo">Zerado</span> acabou</li>
+      </ul>
+      <% } else { %>
+        <div class="vazio">
+          <p>Esta seção ainda não tem lançamentos.</p>
+          <p><a class="btn" href="/produtos/novo">Lançar produto</a></p>
+        </div>
+        <% } %>
+
+          <footer class="colofao">
+            <span>Seção <%= categoria.nome %> · Livro-Caixa</span>
+            <span class="marca-fim">made by vdumer</span>
+          </footer>
+  </main>
+  <script src="/vendor/lucide/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/javascripts/app.js"></script>
+</body>
+
+</html>
